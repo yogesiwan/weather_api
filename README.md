@@ -37,48 +37,46 @@ This API fetches and stores historical weather data for a specific location base
    git clone https://github.com/yourusername/weather-data-api.git
    cd weather-data-api
 
-	2.	Install dependencies
+2.	**Install dependencies**
+    ```bash
+     npm install
+     ```
 
-npm install
+3.	**Set up MongoDB:** Ensure MongoDB is running locally, or use a cloud MongoDB service (e.g., MongoDB Atlas).
+4.	**Create an OpenWeather API Key:** Sign up at OpenWeather and generate an API key.
+5.	**Configure Environment Variables:**
+	Create a .env file in the project root and add your environment variables as follows:
+  ```bash
+   PORT=3000
+   MONGODB_URI=<your_mongo_db_connection_uri>
+   API_KEY=<your_openweather_api_key>
+  ```
 
 
-	3.	Set up MongoDB: Ensure MongoDB is running locally, or use a cloud MongoDB service (e.g., MongoDB Atlas).
-	4.	Create an OpenWeather API Key: Sign up at OpenWeather and generate an API key.
-	5.	Configure Environment Variables:
-	•	Create a .env file in the project root and add your environment variables as follows:
-
-PORT=3000
-MONGODB_URI=<your_mongo_db_connection_uri>
-API_KEY=<your_openweather_api_key>
-
-
-	6.	Run the application
-
+6.	**Run the application**
+```bash
 npm start
+```
 
 The server will start on http://localhost:3000 by default.
 
-Environment Variables
 
-	•	PORT: The port on which the server will run (default: 3000).
-	•	MONGODB_URI: MongoDB connection URI for the database.
-	•	API_KEY: Your OpenWeather API key.
+**API Endpoints**
 
-API Endpoints
-
-Fetch Historical Weather Data
-
+**Fetch Historical Weather Data**
+```bash
 GET /api/weather/:pincode/:day/:month/:year
+```
 
-Description: Fetches historical weather data for the specified pincode and date. If data exists in the database, it will be returned directly. If not, data will be fetched from the OpenWeather API, stored in the database, and returned.
+**Description:** Fetches historical weather data for the specified pincode and date. If data exists in the database, it will be returned directly. If not, data will be fetched from the OpenWeather API, stored in the database, and returned.
 
-Parameters:
+**Parameters:**
 	•	pincode (string): Location pincode
 	•	day (integer): Day of the month (1-31)
 	•	month (integer): Month of the year (1-12)
 	•	year (integer): Four-digit year (e.g., 2024)
 
-Response:
+**Response:**
 	•	Returns an array of weather records for each hour of the specified day, including:
 	•	Temperature
 	•	Pressure
@@ -89,10 +87,13 @@ Response:
 
 Example Request:
 
-GET /api/weather/110043/5/10/2024
+GET 
+```bash 
+/api/weather/110043/5/10/2024
+```
 
 Sample Response:
-
+```bash
 [
   {
     "pincode": "110043",
@@ -110,25 +111,26 @@ Sample Response:
     "weatherDescription": "mist"
   }
 ]
+```
 
-Error Handling
+**Error Handling**
 
 Errors are returned with appropriate HTTP status codes:
-	•	400 Bad Request: For invalid input or missing parameters.
-	•	404 Not Found: When no weather data is found for the given date.
-	•	500 Internal Server Error: For server-side issues.
+	400 Bad Request: For invalid input or missing parameters.
+	404 Not Found: When no weather data is found for the given date.
+	500 Internal Server Error: For server-side issues.
 
-Database Structure
+**Database Structure**
 
 The MongoDB collection stores weather data with fields such as pincode, date, temperature, pressure, humidity, windSpeed, windGust, windDegree, cloudCoverage, and weatherDescription.
 
-Future Improvements
+**Future Improvements**
 
 	•	Implement data aggregation for longer date ranges.
 	•	Add user authentication to restrict API access.
 	•	Implement rate limiting to prevent abuse.
 	•	Support more weather parameters and analysis.
 
-Contributing
+**Contributing**
 
 Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
